@@ -1,9 +1,21 @@
-// If life was easy, we could just do things the easy way:
-// var getElementsByClassName = function (className) {
-//   return document.getElementsByClassName(className);
-// };
+  var getElementsByClassName = function (className, element, result) {
+    if (!element) {
+        element = document.body;
+    }
 
-// But in stead we're going to implement it from scratch:
-var getElementsByClassName = function (className) {
-  // your code here
+    if (!result) {
+        result = [];
+    }
+
+    if (element.classList.contains(className)) {
+        result.push(element);
+    }
+
+    for (var k = 0; k < element.childNodes.length; k++) {
+        if (element.childNodes[k].nodeType === 1) {
+            getElementsByClassName(className, element.childNodes[k], result);
+        }
+    }
+
+    return result;
 };
